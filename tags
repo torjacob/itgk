@@ -1,0 +1,69 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/86bdb84c/
+AGE	assignment4/sporreundersokelse.py	/^AGE = -1$/;"	v
+HOURS	assignment4/sporreundersokelse.py	/^HOURS = []$/;"	v
+N_ITGK	assignment4/sporreundersokelse.py	/^N_ITGK = 0 $/;"	v
+N_MEN	assignment4/sporreundersokelse.py	/^N_MEN = 0 $/;"	v
+N_SUB	assignment4/sporreundersokelse.py	/^N_SUB = 0 $/;"	v
+N_WOMEN	assignment4/sporreundersokelse.py	/^N_WOMEN = 0 $/;"	v
+QUESTIONS	assignment4/sporreundersokelse.py	/^QUESTIONS = [$/;"	v
+Question	assignment4/sporreundersokelse.py	/^class Question:$/;"	c
+__init__	assignment4/sporreundersokelse.py	/^    def __init__(self, t, q, a, alt = "", e = ""):$/;"	m	class:Question
+a	assignment1/James Bond and Operation round().py	/^a = name.split()$/;"	v
+a	assignment1/Tetraeder.py	/^a = (3 \/ math.sqrt(6)) * h$/;"	v
+alder	assignment1/Intro til jupyter.py	/^alder = int(input("Hvor gammel er du? ")) # Her må du kun skrive et tall$/;"	v
+areal	assignment1/Tetraeder.py	/^areal = math.sqrt(3) * a ** 2$/;"	v
+avogadro	assignment1/Vitenskapelig notasjon.py	/^avogadro = 6.022e23$/;"	v
+avrunder	assignment1/James Bond and Operation round().py	/^avrunder = int(input('Oppgi antall deismaler i avrundingen: '))$/;"	v
+avrundet	assignment1/James Bond and Operation round().py	/^avrundet = math.floor(desimaltall * faktor + 0.5) \/ faktor$/;"	v
+check_type	assignment4/sporreundersokelse.py	/^def check_type(question):$/;"	f
+cookieAmount	assignment1/Bakekurs.py	/^cookieAmount = ['', '', '']$/;"	v
+cookies	assignment1/Bakekurs.py	/^cookies = int(input('Hvor mange cookies ønsker du å bake? '))$/;"	v
+desimal	assignment1/James Bond and Operation round().py	/^desimal = int(input('Oppgi desimaldelen av tallet: '))$/;"	v
+desimaler	assignment1/James Bond and Operation round().py	/^desimaler = int(input("Antall desimaler i avrunding: "))$/;"	v
+desimaltall	assignment1/James Bond and Operation round().py	/^desimaltall = float(input("Gi inn et desimaltall: "))$/;"	v
+fSjok	assignment1/Bakekurs.py	/^    fSjok = round(faktor * sjoko, 2)$/;"	v
+fSuk	assignment1/Bakekurs.py	/^    fSuk = round(faktor * sukker, 2)$/;"	v
+faktor	assignment1/Bakekurs.py	/^    faktor = x \/ 48$/;"	v
+faktor	assignment1/Bakekurs.py	/^faktor = cookies \/ 48$/;"	v
+faktor	assignment1/James Bond and Operation round().py	/^faktor = 10 ** desimaler$/;"	v
+h	assignment1/Tetraeder.py	/^h = int(input())$/;"	v
+heard	assignment1/Vitenskapelig notasjon.py	/^heard = int(input())$/;"	v
+heltall	assignment1/James Bond and Operation round().py	/^heltall = int(input('Oppgi heltallsdelen av tallet: '))$/;"	v
+ingredienser	assignment1/Bakekurs.py	/^ingredienser = [400, 320, 500, 2, 460]$/;"	v
+konvertert	assignment1/Bakekurs.py	/^konvertert = []$/;"	v
+lysfart	assignment1/Vitenskapelig notasjon.py	/^lysfart = 3.0e8$/;"	v
+m_sek	assignment1/Vitenskapelig notasjon.py	/^m_sek = 60\/tid$/;"	v
+main	assignment4/sporreundersokelse.py	/^def main():$/;"	f
+makeString	assignment1/James Bond and Operation round().py	/^def makeString(liste):$/;"	f
+maxMelody	assignment1/Vitenskapelig notasjon.py	/^maxMelody = 8.25e19$/;"	v
+mengde	assignment1/Vitenskapelig notasjon.py	/^mengde = int(input())$/;"	v
+message	assignment1/Intro til jupyter.py	/^message = "Wow, Jupyter er kult!"$/;"	v
+molekylmengde	assignment1/Vitenskapelig notasjon.py	/^molekylmengde = avogadro * (mengde \/ molvekt)$/;"	v
+molvekt	assignment1/Vitenskapelig notasjon.py	/^molvekt = int(input())$/;"	v
+name	assignment1/James Bond and Operation round().py	/^name = input('Jeg heter: ')$/;"	v
+navn	assignment1/Intro til jupyter.py	/^navn = input("Hva heter du? ")$/;"	v
+navn	assignment1/Intro til jupyter.py	/^navn = input("Hva heter du?")$/;"	v
+percentage	assignment1/Vitenskapelig notasjon.py	/^percentage = (heard \/ maxMelody) * 100$/;"	v
+read_bool	assignment4/sporreundersokelse.py	/^def read_bool(q):$/;"	f
+read_int	assignment4/sporreundersokelse.py	/^def read_int(q):$/;"	f
+read_str	assignment4/sporreundersokelse.py	/^def read_str(q):$/;"	f
+rund	assignment1/James Bond and Operation round().py	/^def rund(hel, des, n):$/;"	f
+sjoko	assignment1/Bakekurs.py	/^sjoko = 500$/;"	v
+stoff	assignment1/Vitenskapelig notasjon.py	/^stoff = input()$/;"	v
+sukker	assignment1/Bakekurs.py	/^sukker = 400$/;"	v
+surname	assignment1/James Bond and Operation round().py	/^            surname = a[len(a) - 2 :]$/;"	v
+surname	assignment1/James Bond and Operation round().py	/^            surname = a[len(a) - 3 : len(a) - 1]$/;"	v
+surname	assignment1/James Bond and Operation round().py	/^    surname = a[len(a)-1]$/;"	v
+surname	assignment1/James Bond and Operation round().py	/^surname = ''$/;"	v
+tid	assignment1/Vitenskapelig notasjon.py	/^tid = float(input("Hva er din pers på 60m? "))$/;"	v
+volum	assignment1/Tetraeder.py	/^volum = (math.sqrt(2) * a ** 3) \/ 12$/;"	v
+write_stats	assignment4/sporreundersokelse.py	/^def write_stats():$/;"	f
+x	assignment1/Vitenskapelig notasjon.py	/^x = lysfart \/ m_sek$/;"	v
