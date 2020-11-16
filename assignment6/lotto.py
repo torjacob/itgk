@@ -1,11 +1,14 @@
 from random import randint
 
+# DEL 1
 numbers = []
 for i in range(33):
     numbers.append(i+1)
 
+# DEL 2
 myGuess = [2, 3, 5, 6, 8, 9, 31, 11, 7, 9]
 
+# DEL 3
 def drawNumbers(numList, n = 7):
     resultList = []
 
@@ -15,11 +18,13 @@ def drawNumbers(numList, n = 7):
 
     return resultList
 
+# DEL 3
 def compList(a, b):
     lotto = set(a).intersection(b[0:6])
     tillegg = set(a).intersection(b[7:])
     return lotto, tillegg
 
+# DEL 4
 def winnings(alike, bonus = 0):
     d = {
         #  KEY    VALUE
@@ -40,20 +45,24 @@ def winnings(alike, bonus = 0):
     else:
         return 0
 
+# DEL 4
 def main(lottoNumbers, price):
-    # Sammenlikner gjetta med tall som blir dratt i lotto
-    returnedList = compList(drawNumbers(numbers), lottoNumbers)
-    print(returnedList)
-    # Finner hvor mange som var like for lottonummer og bonusnummer
-    lottoHit = len(returnedList[0])
-    bonusHit = len(returnedList[1])
-    # Sjekker hvor mye spilleren har vunnet
-    win = winnings(lottoHit, bonusHit)
-    # Returnerer sum av Hva spiller har vunnet vs hva det kostet å spille
+    combinedReturn = compList(drawNumbers(numbers), lottoNumbers)
+    lottoRetun = len(combinedReturn[0])
+    bonusReturn = len(combinedReturn[1])
+    win = winnings(lottoRetun, bonusReturn)
     return win - price
 
-resultat = 0
-for i in range(10000):
-    resultat += main(myGuess, 5)
+# DEL 5
+totalWin = 0
+for i in range(1000000):
+    numbers = []
+    for i in range(33):
+        numbers.append(i+1)
 
-print(resultat)
+    thisWin = main(myGuess, 5)
+    if thisWin > 40:
+        print("Storgevinst!: ", thisWin)
+    totalWin += thisWin
+
+print(totalWin)
