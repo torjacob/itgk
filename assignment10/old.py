@@ -1,3 +1,5 @@
+# Faults / TODOS: Only checks if king kan exit check itself, not if any other pieces can intervene
+
 # Imports ---------------------------------------------------------------------
 from os import system, name # for clear function
 
@@ -61,18 +63,6 @@ test_board = [
     ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜']
 ]
 
-chess_test_board = [
-
-    ['♖', '.', '♗', '♕', '♔', '♗', '♘', '♖'],
-    ['♙', '♙', '♙', '.', '♙', '♙', '♙', '♙'],
-    ['.', '.', '♘', '.', '.', '.', '.', '.'],
-    ['.', '.', '.', '♙', '.', '.', '.', '.'],
-    ['.', '.', '.', '♟', '.', '.', '.', '.'],
-    ['.', '.', '.', '.', '.', '.', '.', '.'],
-    ['♟', '♟', '♟', '.', '♟', '♟', '♟', '♟'],
-    ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜']
-]
-
 BOARD = test_board
 
 # Functions -------------------------------------------------------------------
@@ -127,7 +117,7 @@ def get_index(position): # Translate from player move to index in board | str ->
     index = [x, y]
     return index
 
-def get_position(index): # Translate from index in board to position | [int] -> str
+def get_postition(index): # Translate from index in board to position | [int] -> str
     alpha = "abcdefgh"
     x = alpha[index[0]]
     y = 8 - index[1]
@@ -229,7 +219,7 @@ def get_possible_king_moves(position): # Get possible king moves | str -> str
     for delta in DELTAS['king']:
         calc_pos = [king_index[0] + delta[0], king_index[1] + delta[1]]
         if not(calc_pos[0] < 0 or calc_pos[1] < 0 or calc_pos[0] > 7 or calc_pos[1] > 7):
-            moves.append(position + ' ' + get_position(calc_pos))
+            moves.append(position + ' ' + get_postition(calc_pos))
     return moves
 
 def get_possible_king_to_positions(position): # Get possible king pos from current pos | str -> [str]
@@ -238,23 +228,8 @@ def get_possible_king_to_positions(position): # Get possible king pos from curre
     for delta in DELTAS["king"]:
         calc_pos = [king_index[0] + delta[0], king_index[1] + delta[1]]
         if not(calc_pos[0] < 0 or calc_pos[1] < 0 or calc_pos[0] > 7 or calc_pos[1] > 7):
-            positions.append(get_position(calc_pos))
+            positions.append(get_postition(calc_pos))
     return positions
-
-def get_attacking_piece_positions(position, attacking_color):
-    attacking_color_indexes = get_index_all_pieces(attacking_color)
-    attacking_piece_positions = []
-
-    for coordinate in attacking_color_indexes:
-        attacking_position = get_position(coordinate)
-        attacking_move = [attacking_position, position]
-        delta = get_delta(attacking_move)
-        if check_legal(attacking_move, attacking_color, delta, False):
-            attacking_piece_positions.append(attacking_position)
-
-    return attacking_piece_positions
-
-
 
 # Set functions
 def set_piece(pos_index, piece): # Place piece on given index of board
@@ -310,9 +285,6 @@ def check_move_pawn(move, color): # Check if move is within moveset -- PAWN
     if abs(delta_y) > max_delta_y:
         return False
 
-    if abs(delta_x) == 1 and abs(delta_y) != 1: # Only diagonal, not horizontal
-        return False
-
     if abs(delta_x) == 1: # Strike
         if check_piece_color(dest_piece, color) or dest_piece == '.':
             return False
@@ -351,7 +323,7 @@ def check_move_king(delta): # Check if move is within moveset -- KING
 def check_attack_state(position, attacking_color): # Is the square in question under attack by one of the attacking_colors pieces
     attacking_color_indexes = get_index_all_pieces(attacking_color) # Get list of all attacking colors pieces
     for coordinate in attacking_color_indexes: # Check moves from all of those positions to the position to check
-        attacking_position = get_position(coordinate)
+        attacking_position = get_postition(coordinate)
         full_move = [attacking_position, position]
         # print('Checking', full_move, ' for position attack')
         delta = get_delta(full_move)
@@ -359,63 +331,37 @@ def check_attack_state(position, attacking_color): # Is the square in question u
             return True
     return False
 
-def check_threat_king(pos_defending_king, defending_color):
-    can_king_handle_threat = False
 
-    if defending_color == 'ebony':
-        attacking_color = 'ivory'
+def check_check(color): # Check if king is in check
+    pos_defending_king = get_postition(get_index_piece(PIECES[color][4])) # Fetch pos_index of king
+
+    if color == 'ebony':
+        alt_col = 'ivory'
     else:
-        attacking_color = 'ebony'
+        alt_col = 'ebony'
 
+    retval = check_attack_state(pos_defending_king, alt_col)
+    # print('Under attack : ', retval)
+    return retval
+
+def check_checkmate(color): # Check if king is in checkmate (WINNER!)
+    pos_defending_king = get_postition(get_index_piece(PIECES[color][4])) # Fetch pos_index of king
+    if color == 'ebony':
+        alt_col = 'ivory'
+    else:
+        alt_col = 'ebony'
+
+    can_king_handle_threat = False
     for possible_king_position in get_possible_king_to_positions(pos_defending_king):
         piece_at_position = get_piece(get_index(possible_king_position))
-        if not check_piece_color(piece_at_position, defending_color): # Cannot move to position where own piece is
-            if not check_attack_state(possible_king_position, attacking_color):
+        if not check_piece_color(piece_at_position, color): # Cannot move to position where own piece is
+            if not check_attack_state(possible_king_position, alt_col):
                 can_king_handle_threat = True
 
     if can_king_handle_threat:
         return False
 
-def check_threat_others(pos_defending_king, defending_color):
-    #Get list of all pieces threathening defeding king
-    if defending_color == 'ebony':
-        attacking_color = 'ivory'
-    else:
-        attacking_color = 'ebony'
-    attacking_positions = get_attacking_piece_positions(pos_defending_king, attacking_color)
-
-    if len(attacking_positions) == 0:   #No threaths, would not normally happen
-        return False
-    if len(attacking_positions) > 1: #Assuming we cannot take out two threaths by one move
-        return False
-    prime_attacker_position = attacking_positions[0] #get the attacking position
-    possible_attack_removers = get_attacking_piece_positions(prime_attacker_position, defending_color)
-    try:
-        king_pos_index = possible_attack_removers.index(pos_defending_king)
-        del possible_attack_removers[king_pos_index]
-    except:
-        None
-
-    if len(possible_attack_removers) > 0 :
-        return True
-    return False
-
-def check_check(color): # Check if king is in check
-    pos_defending_king = get_position(get_index_piece(PIECES[color][4])) # Fetch pos_index of king
-
-    if color == 'ebony':
-        attacking_color = 'ivory'
-    else:
-        attacking_color = 'ebony'
-
-    retval = check_attack_state(pos_defending_king, attacking_color)
-    # print('Under attack : ', retval)
-    return retval
-
-def check_checkmate(color): # Check if king is in checkmate (WINNER!)
-    pos_defending_king = get_position(get_index_piece(PIECES[color][4])) # Fetch pos_index of king
-    if check_threat_king(pos_defending_king, color) or check_threat_others(pos_defending_king, color):
-        return False
+    #More complex cases could be handled here
     return True
 
 def check_piece_color(piece, color): # Does position have a piece on players side?
@@ -467,7 +413,7 @@ def check_legal(move, color, delta, check_target_position): # Run through all le
     # Is the destination valid?
     d = get_piece(get_index(move[1]))
     if d != '.':
-        if check_target_position: # Not checking for piece in square when doing attack checks
+        if check_target_position: # not checking for piece in square when doing attack checks
             if d in PIECES[color]: # Does destination have a piece on enemy side?
                 ERROR = 'Destination already has one of your pieces'
                 return False
@@ -482,7 +428,7 @@ def move_piece(move): # Move piece around board
     set_piece(get_index(move[0]), '.') # Empty origin
     set_piece(get_index(move[1]), p) # Fill destination
 
-def swap_pawn(index, color): # Swap pawn from player input when crossing board
+def swap_pawn(index, color):
     piece = get_input_piece(color)
     set_piece(index, piece)
 
@@ -521,3 +467,4 @@ def main(): # Run game
 
 # Run -------------------------------------------------------------------------
 main()
+
